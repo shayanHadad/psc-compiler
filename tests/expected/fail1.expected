@@ -1,0 +1,6 @@
+=== Tokenization ===
+
+=== Errors during tokenization ===
+Error: Invalid token at line 1, column 9
+Error: Invalid token at line 1, column 10
+Error: Invalid token at line 1, column 11
