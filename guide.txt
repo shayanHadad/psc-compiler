@@ -1,0 +1,9 @@
+g++ main.cpp -std=c++17 -o compiler
+
+linux : ./compiler input.psc
+
+cmd: compiler.exe input.psc
+
+powershell: .\compiler.exe input.psc
+
+psc = parsa + shayan + compiler

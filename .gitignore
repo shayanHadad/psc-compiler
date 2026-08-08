@@ -1,0 +1,17 @@
+# Build output
+compiler
+compiler.exe
+*.o
+*.obj
+*.out
+
+# Build directories
+build/
+bin/
+
+# Editor / OS junk
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
