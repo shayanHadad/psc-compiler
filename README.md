@@ -80,10 +80,13 @@ compiler_project/
 │   ├── Parser.cpp
 │   ├── Utils.cpp
 │   └── main.cpp
-└── examples/            # Sample .psc programs
-    ├── program1.psc
-    ├── program2.psc
-    └── fail1.psc         # deliberately invalid, to demonstrate error reporting
+├── examples/            # Sample .psc programs
+│   ├── program1.psc
+│   ├── program2.psc
+│   └── fail1.psc         # deliberately invalid, to demonstrate error reporting
+└── tests/                # Automated test runner
+    ├── run_tests.sh
+    └── expected/          # Expected output for each example
 ```
 
 ## Build
@@ -110,10 +113,33 @@ compiler.exe examples\program1.psc
 The program prints a token table followed by the syntax analysis result.
 Try `examples/fail1.psc` to see how lexical/syntax errors are reported.
 
+## Testing
+
+`tests/run_tests.sh` builds the compiler and runs it against every
+`.psc` file in `examples/`, comparing the output to the matching file
+in `tests/expected/`.
+
+```bash
+chmod +x tests/run_tests.sh
+./tests/run_tests.sh
+```
+
+```
+Building compiler...
+PASS  fail1
+PASS  program1
+PASS  program2
+
+3 passed, 0 failed
+```
+
+If a new `.psc` example is added without a matching `tests/expected/*.expected`
+file, that test is reported as `SKIP` rather than failing.
+
 ## Authors
 
-- Parsa Basiri
-- Shayan Hadad
+- Parsa
+- Shayan
 
 _(the project name **PSC** comes from **P**arsa + **S**hayan + **C**ompiler)_
 
