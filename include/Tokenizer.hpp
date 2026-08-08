@@ -4,7 +4,6 @@
 #include <vector>
 #include <regex>
 #include <unordered_set>
-#include <unordered_map>
 #include <utility>
 
 #include "Token.hpp"
@@ -32,10 +31,15 @@ private:
     const std::unordered_set<char> DELIMITERS = {'(', ')', ';', ',', ':'};
     const std::unordered_set<char> WHITESPACE = {' ', '\t', '\n'};
 
-    std::unordered_map<std::string, std::regex> token_patterns = {
-        {"identifier", std::regex("\\b[a-e][a-e0-9]*\\b")},
+    // Ordered (not hashed) on purpose: scan() picks the *longest* match
+    // among all patterns that match at the current position, and only
+    // falls back to this list order to break ties between equal-length
+    // matches. Keywords are listed first so that, e.g., "end" is never
+    // mistaken for a partial identifier match.
+    const std::vector<std::pair<std::string, std::regex>> token_patterns = {
         {"keyword", std::regex("\\b(program|var|begin|end|integer|show)\\b")},
-        {"delimiter", std::regex("(\\(|\\)|;|,|:)")},
+        {"identifier", std::regex("\\b[a-e][a-e0-9]*\\b")},
         {"number", std::regex("\\b[+-]?\\d+\\b")},
+        {"delimiter", std::regex("(\\(|\\)|;|,|:)")},
         {"operator", std::regex("(\\+|\\-|\\*|\\/|=)")}};
 };

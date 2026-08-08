@@ -30,17 +30,24 @@ pair<vector<Token>, vector<string>> Tokenizer::scan()
             smatch match;
             string token_type;
             string token_value;
+            string substr = line.substr(col_number - 1);
 
+            // Try every pattern and keep the LONGEST match that starts
+            // right here (maximal munch). Trying patterns in an
+            // unspecified order and stopping at the first hit (as this
+            // used to do) could pick a shorter token depending on
+            // iteration order - e.g. matching just part of a keyword.
             for (const auto &pattern_pair : token_patterns)
             {
-                string substr = line.substr(col_number - 1);
                 if (regex_search(substr, match, pattern_pair.second) &&
                     match.position() == 0)
                 {
-                    token_value = match.str();
-                    token_type = pattern_pair.first;
-                    matched = true;
-                    break;
+                    if (!matched || match.length() > static_cast<long>(token_value.length()))
+                    {
+                        token_value = match.str();
+                        token_type = pattern_pair.first;
+                        matched = true;
+                    }
                 }
             }
 
