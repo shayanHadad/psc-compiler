@@ -138,8 +138,10 @@ file, that test is reported as `SKIP` rather than failing.
 
 ## Authors
 
-- Parsa
-- Shayan
+This was a joint project, built and maintained together by:
+
+- **Parsa** — [github.com/ParsaBasiri](https://github.com/ParsaBasiri)
+- **Shayan** — [github.com/shayanHadad](https://github.com/shayanHadad)
 
 _(the project name **PSC** comes from **P**arsa + **S**hayan + **C**ompiler)_
 
